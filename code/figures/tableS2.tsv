@@ -1,0 +1,19 @@
+group	strain_or_species	CAn_tract_units	HxH_motif_preserved	note
+within_D.melanogaster_strain	D. melanogaster dm6 (ISO1, ref.)	9	Y	reference assembly
+within_D.melanogaster_strain	OreR / w1118 (lab)	9	Y	identical to reference
+within_D.melanogaster_strain	Denmark (DK)	6	Y	6-bp in-frame deletion (tract shortened)
+within_D.melanogaster_strain	Spain (ES)	8	Y‡	2- & 1-bp indels (frameshift)
+within_D.melanogaster_strain	Finland (FI)	6	Y	6-bp in-frame deletion (tract shortened)
+within_D.melanogaster_strain	Sweden (SE)	10	Y‡	2-bp deletion (frameshift)
+within_D.melanogaster_strain	Turkey (TR)	8	Y‡	2- & 1-bp indels (frameshift)
+within_D.melanogaster_strain	Ukraine (UA)	9	Y	identical to reference
+within_D.melanogaster_strain	Zambia (ZI)	8	Y‡	2- & 1-bp indels (frameshift)
+across_Drosophila_species	D. melanogaster	9	Y	~0 Mya; reference
+across_Drosophila_species	D. simulans	6	Y	~3-5 Mya; strong
+across_Drosophila_species	D. sechellia	7	Y	~3-5 Mya; strong
+across_Drosophila_species	D. mauritiana	9	Y	~3-5 Mya; strong
+across_Drosophila_species	D. yakuba	7	Y	~10-13 Mya; strong
+across_Drosophila_species	D. erecta	5	Y	~10-13 Mya; strong
+across_Drosophila_species	D. ananassae	0	N	~15-20 Mya; moderate; tract collapsed
+across_Drosophila_species	D. pseudoobscura	5	N	~25 Mya; partial; ORF truncated pre-tract
+across_Drosophila_species	D. virilis	0	N	~40-50 Mya; fragmentary; ORF truncated pre-tract
