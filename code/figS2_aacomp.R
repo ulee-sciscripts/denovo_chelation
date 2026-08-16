@@ -43,9 +43,8 @@ for (j in seq_along(resid)) {
   hs_bracket(gx[j], gx[j] + 0.14, top + 0.45, st, tick = 0.15)
 }
 
-mtext("brackets: de novo vs proteome (two-proportion z-test)",
-      side = 3, line = 1.9, cex = 0.82, adj = 0.5)
 mtext("A   His / Cys / Asp / Glu residues", side = 3, line = 0.5, cex = 1.15, adj = 0, font = 2)
+mtext("*** p<0.001", side = 3, line = 0.5, cex = 0.82, adj = 1)
 
 ## ================= PANEL B -- full composition, all 20 aa ====================
 n    <- nrow(d)                       # 20 amino acids
@@ -78,6 +77,5 @@ legend("center", horiz = TRUE, bty = "n", cex = 1.0, x.intersp = 0.6,
        legend = c("intergenic", "random ORF", "neORF", "proteome", "metal-binders"),
        pch    = c(P_IN, P_RO, P_DN, P_PR, P_MB),
        pt.cex = c(1.00, 1.00, 1.30, 1.00, 1.00))
-mtext("*** p<0.001", side = 1, line = -1.1, cex = 0.82, adj = 0.5)
 invisible(dev.off())
 cat("wrote figS2.pdf\n")
