@@ -1,0 +1,10 @@
+species	ORF_aa_to_stop	full_len_ORF(>=54aa)	CAn_units_raw	His_count	HxHxH_triple	microsat_sensitive	translation
+D. melanogaster (dm6)	55	Y	9	7	Y	reference/within-species-validated	MYNIFAHLTSGLVRLLACNFKILMALHSHCNHTHTHTRTRIHVTQQSSGVQSRIQ
+D. simulans	43	N	6	7	Y	HIGH(single assembly, tract-dependent)	MYNIFAHLTSGLVRLLACNFKILMALHSHCNHTHTHTHALAFT
+D. sechellia	41	N	7	6	Y	HIGH(single assembly, tract-dependent)	MYNIFAHLTSGLVRLLACNFKILMALHSHCNHTHTHALAFT
+D. mauritiana	55	Y	9	7	Y	HIGH(single assembly, tract-dependent)	MYNIFAHLTSGLVRLLACNFKILMALHSHCNHTHTHTLTRIHVTQQSSGVQSRIQ
+D. yakuba	49	N	7	10	Y	HIGH(single assembly, tract-dependent)	MYNIFAHLTSGLVRLLACNFKILMALHSHCNHTHTHSHTHTHIHTYAFT
+D. erecta	45	N	5	7	Y	HIGH(single assembly, tract-dependent)	MYNIFAHLTSGLVRLLACNFKILMALHSHRNHTHKHTHTRAFAFT
+D. ananassae	58	Y	0	7	N	HIGH(single assembly, tract-dependent)	MYNIFAHLTSGLVRLLACNFKILMARHSHCSHNCTHIHPSRRIHAMEQVELGSPYRFG
+D. pseudoobscura	16	N	5	1	N	LOW(early stop pre-tract, robust)	MYNIFAHLTSGPVYGY
+D. virilis	4	N	0	1	N	LOW(early stop pre-tract, robust)	MWRH

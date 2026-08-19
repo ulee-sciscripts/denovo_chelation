@@ -3,3 +3,7 @@ __pycache__/
 *.tmp
 .DS_Store
 gh_token*
+code/_rebuild_scratch/
+code/fig5_render/
+*.gtf
+genmap_index/

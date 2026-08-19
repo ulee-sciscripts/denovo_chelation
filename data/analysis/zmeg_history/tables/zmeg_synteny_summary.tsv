@@ -1,0 +1,10 @@
+species	approx_Mya_from_mel	clade	syntenic_locus_present	scaffold	Gr93_anchor	ZMEG_region	glec_anchor	ZMEG_region_aln_quality	ORF_len_aa_to_stop	full_ORF+His-triple	CAn_units(raw,single-asm)	His_count	HxHxH_triple	poly-His_motif_region	translation_ATG->stop
+D. melanogaster (dm6)	0	reference	YES	3R	21832502-21846711	21849184-21849652	21850693-21856266	reference	55	YES	9	7	Y	YES (full poly-HxH; His32/34/36 triple)	MYNIFAHLTSGLVRLLACNFKILMALHSHCNHTHTHTRTRIHVTQQSSGVQSRIQ
+D. simulans	~3-5	simulans-clade	YES	NC_052523.2	18062853-18073307	18075817-18078565	18078378-18084267	strong (near-identical)	43	NO	6	7	Y	YES (poly-His present)	MYNIFAHLTSGLVRLLACNFKILMALHSHCNHTHTHTHALAFT
+D. sechellia	~3-5	simulans-clade	YES	NC_045952.1	20414455-20423725	20425064-20427938	20427743-20433596	strong	41	NO	7	6	Y	YES (poly-His present)	MYNIFAHLTSGLVRLLACNFKILMALHSHCNHTHTHALAFT
+D. mauritiana	~3-5	simulans-clade	YES	NC_046670.1	18799423-18808964	18811313-18814138	18813944-18819837	strong	55	YES	9	7	Y	YES (full poly-HxH; His32/34/36 triple)	MYNIFAHLTSGLVRLLACNFKILMALHSHCNHTHTHTLTRIHVTQQSSGVQSRIQ
+D. yakuba	~10-13	mel-subgroup(yakuba cplx)	YES	NC_052530.2	20301079-20306167	20308753-20311751	20311545-20318073	strong	49	NO	7	10	Y	YES (poly-His present, extended)	MYNIFAHLTSGLVRLLACNFKILMALHSHCNHTHTHSHTHTHIHTYAFT
+D. erecta	~10-13	mel-subgroup(yakuba cplx)	YES	CM120430.1	20882303-20884194	20895727-20898719	20898490-20905212	strong	45	NO	5	7	Y	YES (poly-His present)	MYNIFAHLTSGLVRLLACNFKILMALHSHRNHTHKHTHTRAFAFT
+D. ananassae	~15-20	mel-group(non-subgroup)	YES	NC_057927.1	8733445-8735312	8749785-8752114	8752282-8755840	moderate (~84% N-term; tract diverged)	58	partial	0	7	N	NO (tract collapsed; His-triple lost)	MYNIFAHLTSGLVRLLACNFKILMARHSHCSHNCTHIHPSRRIHAMEQVELGSPYRFG
+D. pseudoobscura	~25	Sophophora(obscura)	YES	NC_046679.1	6898931-6900436	6915669-6917134	6917807-6921349	partial (5' only; ORF truncated)	16	NO	5	1	N	NO (ORF truncated pre-tract)	MYNIFAHLTSGPVYGY
+D. virilis	~40-50	subgenus Drosophila	YES	NC_091544.1	3911990-3912091	3922289-3923577	3924135-3924285	fragmentary (5' anchor + short blocks)	21	NO	0	1	N	NO (ORF truncated pre-tract)	MSNILFAHLSSWPGMVISMQF

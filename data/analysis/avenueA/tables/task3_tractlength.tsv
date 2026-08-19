@@ -1,0 +1,37 @@
+# ZMEG = the ONLY (CA)n microsatellite candidate: tract length is mechanistically meaningful.
+# ZMIY/NYAM/CUEL = NOT microsatellite; motif-region polymorphism reported instead (NOT (CA)n dynamics).
+symbol	metric_type	reference	population	locus_recovered	CAn_bp	CAn_units	motif_preserved	notable_variants
+ZMEG	(CA)n_microsat	dm6	ISO1	YES	18	9	Y	reference
+ZMEG	(CA)n_microsat	ORw1118	OreR/w1118-lab	YES	18	9	Y	identical_to_dm6(9 units)
+ZMEG	(CA)n_microsat	GC_UA_denovo	Ukraine_deNovoTx	YES	18	9	Y	identical
+ZMEG	(CA)n_microsat	gDNA_DK	Denmark	YES	12	6	Y	del6@107(CA-microsat/inframe)
+ZMEG	(CA)n_microsat	gDNA_ES	Spain	YES	16	8	Y	del2@111(CA-microsat/FS);del1@119(unique/FS)
+ZMEG	(CA)n_microsat	gDNA_FI	Finland	YES	12	6	Y	del6@107(CA-microsat/inframe)
+ZMEG	(CA)n_microsat	gDNA_SE	Sweden	YES	20	10	Y	del2@111(CA-microsat/FS)
+ZMEG	(CA)n_microsat	gDNA_TR	Turkey	YES	16	8	Y	del2@111(CA-microsat/FS);del1@119(unique/FS)
+ZMEG	(CA)n_microsat	gDNA_UA	Ukraine	YES	18	9	Y	identical
+ZMEG	(CA)n_microsat	gDNA_ZI	Zambia	YES	16	8	Y	del2@111(CA-microsat/FS);del1@119(unique/FS)
+ZMIY	motif_region(NOT_microsat)	ORw1118	OreR/w1118-lab	YES	NA	NA	Y	subs=0,del=0,ins=0
+ZMIY	motif_region(NOT_microsat)	gDNA_DK	Denmark	YES	NA	NA	N	disrupted?|LOW (homopolymer/microsat indel-assembly-sensitive)|3sub|ins1@150(homopolymer/FS)
+ZMIY	motif_region(NOT_microsat)	gDNA_ES	Spain	YES	NA	NA	N	disrupted?|LOW (homopolymer/microsat indel-assembly-sensitive)|0sub|ins1@150(homopolymer/FS)
+ZMIY	motif_region(NOT_microsat)	gDNA_FI	Finland	YES	NA	NA	Y	INTACT|high|0sub|no_indel
+ZMIY	motif_region(NOT_microsat)	gDNA_SE	Sweden	YES	NA	NA	N	disrupted?|LOW (homopolymer/microsat indel-assembly-sensitive)|0sub|del1@150(homopolymer/FS)
+ZMIY	motif_region(NOT_microsat)	gDNA_TR	Turkey	YES	NA	NA	Y	INTACT|high|0sub|no_indel
+ZMIY	motif_region(NOT_microsat)	gDNA_UA	Ukraine	YES	NA	NA	Y	INTACT|high|0sub|no_indel
+ZMIY	motif_region(NOT_microsat)	gDNA_ZI	Zambia	YES	NA	NA	Y	INTACT|high|1sub|no_indel
+NYAM	motif_region(NOT_microsat)	ORw1118	OreR/w1118-lab	YES	NA	NA	Y	subs=0,del=0,ins=0
+NYAM	motif_region(NOT_microsat)	gDNA_DK	Denmark	YES	NA	NA	Y	INTACT|high|0sub|no_indel
+NYAM	motif_region(NOT_microsat)	gDNA_ES	Spain	YES	NA	NA	Y	INTACT|high|0sub|no_indel
+NYAM	motif_region(NOT_microsat)	gDNA_FI	Finland	YES	NA	NA	Y	INTACT|high|0sub|no_indel
+NYAM	motif_region(NOT_microsat)	gDNA_SE	Sweden	YES	NA	NA	N	disrupted?|LOW (homopolymer/microsat indel-assembly-sensitive)|0sub|ins1@48(homopolymer/FS)
+NYAM	motif_region(NOT_microsat)	gDNA_TR	Turkey	YES	NA	NA	Y	INTACT|high|0sub|no_indel
+NYAM	motif_region(NOT_microsat)	gDNA_UA	Ukraine	YES	NA	NA	Y	INTACT|high|1sub|no_indel
+NYAM	motif_region(NOT_microsat)	gDNA_ZI	Zambia	YES	NA	NA	Y	INTACT|high|1sub|no_indel
+CUEL	motif_region(NOT_microsat)	ORw1118	OreR/w1118-lab	YES	NA	NA	Y	subs=1,del=0,ins=0
+CUEL	motif_region(NOT_microsat)	gDNA_DK	Denmark	YES	NA	NA	Y	INTACT|high|1sub|no_indel
+CUEL	motif_region(NOT_microsat)	gDNA_ES	Spain	YES	NA	NA	Y	INTACT|high|1sub|no_indel
+CUEL	motif_region(NOT_microsat)	gDNA_FI	Finland	YES	NA	NA	Y	INTACT|high|1sub|no_indel
+CUEL	motif_region(NOT_microsat)	gDNA_SE	Sweden	YES	NA	NA	Y	INTACT|high|1sub|no_indel
+CUEL	motif_region(NOT_microsat)	gDNA_TR	Turkey	YES	NA	NA	Y	INTACT|high|1sub|no_indel
+CUEL	motif_region(NOT_microsat)	gDNA_UA	Ukraine	YES	NA	NA	Y	INTACT|high|1sub|del6@246(unique/inframe)
+CUEL	motif_region(NOT_microsat)	gDNA_ZI	Zambia	YES	NA	NA	Y	INTACT|high|1sub|no_indel
