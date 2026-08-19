@@ -58,7 +58,7 @@ draws the R figures — path-wired, not tested here; needs network + numpy + sci
 
 These are Python and read the **analysis data tree** at `../data/analysis/`
 (sibling of `submission/`), which is now **bundled** under `data/analysis/`. Override
-the root with `ZROOT=/path/to/zinc_analysis`. The mode is best-effort: a missing
+the root with `ZROOT=/path/to/analysis`. The mode is best-effort: a missing
 input or dependency warns and continues. Python deps: `matplotlib` (+ `numpy`,
 `scipy`, `pandas` for Fig 4; `PIL` for Fig 5). Fig 5 additionally needs **PyMOL** and
 structure files — render its panels first, then compose:

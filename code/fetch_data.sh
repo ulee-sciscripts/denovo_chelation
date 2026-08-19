@@ -6,7 +6,7 @@
 # to regenerate those CSVs with the Python drivers (run_all.sh --from-raw).
 #
 # SCOPE: this covers the R figures only (Figs 1, 2, S1, S2).  The zinc/ZMEG
-# figures (Figs 3, 4, 5 + Tables) read the analysis tree at ../../zinc_analysis/
+# figures (Figs 3, 4, 5 + Tables) read the bundled analysis data at ../data/analysis/
 # (star_counts/, zmeg_history/, structures/, neORF.fa, ...), which is NOT bundled
 # and NOT fetched here; see README.md, "Track 2".
 #
