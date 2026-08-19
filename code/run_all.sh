@@ -57,7 +57,7 @@ if [ "$MODE" = "--zinc-figs" ]; then
   "$PYTHON" fig3_mechanism.py       || echo "WARN fig3_mechanism.py failed (missing data/deps?)"
   "$PYTHON" fig4_transcription.py   || echo "WARN fig4_transcription.py failed (missing data/deps?)"
   "$PYTHON" figS_calpro.py          || echo "WARN figS_calpro.py failed (missing data/deps?)"
-  "$PYTHON" tableS1_expression.py   || echo "WARN tableS1_expression.py failed (missing data/deps?)"   # Table S1 -> ../data/TableS1_neORF_expression_472.csv
+  "$PYTHON" tableS1_expression.py   || echo "WARN tableS1_expression.py failed (missing data/deps?)"   # Table S1 -> ../data/Dataset_S1_neORF_expression.csv
   "$PYTHON" tableS2.py              || echo "WARN tableS2.py failed (missing data/deps?)"                # Table S2 -> figures/tableS2.{tsv,png,pdf}
   echo "   Fig 5 (fig5_metalsite.py) needs PyMOL-rendered panels first:"
   echo "     pymol -cq fig5_render_pymol.py   # writes panels to \$FIG5_SCR (default ./fig5_render)"

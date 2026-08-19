@@ -3,7 +3,7 @@
 neORFs (correct dm6 coords, H-x-H content, ZMEG labeled). Machine-readable CSV."""
 import os, csv, re
 base=os.environ.get("ZROOT","../data/analysis")   # analysis data tree
-out=os.environ.get("ZS1OUT","../data/TableS1_neORF_expression_472.csv")
+out=os.environ.get("ZS1OUT","../data/Dataset_S1_neORF_expression.csv")
 
 # --- counts.txt (featureCounts): geneid -> (len, counts[]); per-sample RPK sum for TPM ---
 with open(base+"/star_counts/counts.txt") as f:

@@ -20,8 +20,8 @@ from within `code/`.
 | **S1** | top-15 enriched ELM/SLiM classes | `figS1_slim.R` | `hs_style.R` (mono) | shipped CSVs ✅ |
 | **S2** | amino-acid composition by class | `figS2_aacomp.R` | `hs_style.R` (mono) | shipped CSVs ✅ |
 | **S3** | apo-model calibration control (calprotectin vs ZMEG) | `figS_calpro.py` | `hs_mpl.py` (mono) | structures ⚠️ |
-| **Table S1** | per-replicate expression of the clean-intergenic mappable neORFs (472 identified; 466 quantified — 6 X-linked near-zero loci outside the featureCounts run, see `data/analysis/clean_set_unquantified.tsv`; ZMEG labelled) | `tableS1_expression.py` | — (CSV → `../data/`) | bundled ✓ |
-| **Table S2** | ZMEG (CA)n tract length within/across species | `tableS2.py` | `hs_mpl.py` (mono) | bundled ✓ |
+| **Dataset S1** | per-replicate expression of the clean-intergenic mappable neORFs (472 identified; 466 quantified — 6 X-linked near-zero loci outside the featureCounts run, see `data/analysis/clean_set_unquantified.tsv`; ZMEG labelled) | `tableS1_expression.py` | — (CSV → `../data/`) | bundled ✓ |
+| **Table S1** | ZMEG (CA)n tract length within/across species | `tableS2.py` | `hs_mpl.py` (mono) | bundled ✓ |
 
 `hs_style.R` (R base graphics) and `hs_mpl.py` (matplotlib) are the two shared
 **austere/monochrome** style modules; every figure that can be monochrome sources one of them.
@@ -90,14 +90,14 @@ submission/
     fetch_data.sh           <- downloads raw inputs for the R --from-raw path into ../data/raw/
     fig{1,2}*.R  figS{1,2}*.R          <- R figures (mono; hs_style.R)
     fig{3,4,5}*.py tableS2.py figS_calpro.py    <- zinc/ZMEG figures (hs_mpl.py / inline)
-    tableS1_expression.py   <- Table S1 generator (machine-readable CSV -> ../data/)
+    tableS1_expression.py   <- Dataset S1 generator (machine-readable CSV -> ../data/)
     hs_style.R  hs_mpl.py   <- shared austere style modules (R / Python)
     figures/                <- output PDFs/PNGs (created on run)
   data/
     hisspacing/             <- shipped intermediate CSVs (Figs 1/2/S1/S2 inputs)
     intermediate/           <- precomputed chelation tables the Python drivers read
     raw/                    <- raw inputs, populated by fetch_data.sh (empty here)
-    TableS1_neORF_expression_472.csv  <- Table S1: per-replicate STAR TPM (466 of the 472-locus clean set quantified; 6 X-linked near-zero loci unquantified)
+    Dataset_S1_neORF_expression.csv  <- Dataset S1: per-replicate STAR TPM (466 of the 472-locus clean set quantified; 6 X-linked near-zero loci unquantified)
 ```
 
 ## R figure inputs (Track 1, `../data/hisspacing/`)
@@ -140,8 +140,8 @@ cells with **STAR + featureCounts** (unique reads, length-normalized to TPM), on
 **mappability-honest, non-overlapping** clean set (`neORF_clean_mappable.tsv`:
 472 loci). That set is reproducible from primary inputs via
 `rebuild_clean_intergenic.py` (BLAT neORFs → dm6 unique best hit; drop any FlyBase
-gene overlap; genmap K=101/E=2 unique-mapping screen). Table S1
-(`tableS1_expression.py` → `../data/TableS1_neORF_expression_472.csv`) carries the
+gene overlap; genmap K=101/E=2 unique-mapping screen). Dataset S1
+(`tableS1_expression.py` → `../data/Dataset_S1_neORF_expression.csv`) carries the
 per-replicate STAR TPMs (WT / ZnT63-KO / IA2-KO × control/Zn/Mn) for the 466 of 472 quantified in this run (6 X-linked near-zero loci unquantified; see `data/analysis/clean_set_unquantified.tsv`),
 with per-condition means and H-x-H content. The featureCounts matrix
 (`data/analysis/star_counts/counts.txt`) is **bundled**; regenerate it from raw FASTQ

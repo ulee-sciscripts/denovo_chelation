@@ -7,7 +7,7 @@
 
 (Table S1 is the machine-readable per-replicate expression CSV of the 267
 mappability-clean neORFs -- generated separately by tableS1_expression.py, written
-to ../data/TableS1_neORF_expression_472.csv.)"""
+to ../data/Dataset_S1_neORF_expression.csv.)"""
 import os, csv
 import matplotlib.pyplot as plt
 from hs_mpl import apply_style, save, INK, GREY1, GREY2, GREY3, GREYbg, WHITE

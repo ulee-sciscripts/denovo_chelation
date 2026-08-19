@@ -4,7 +4,7 @@ Code and data release for the manuscript on *de novo* ORFs as candidate metal (z
 
 - `code/` — analysis and figure-generation scripts. `code/run_all.sh` reproduces the figures; see `code/README.md` for details and dependencies.
 - `data/` — machine-readable supplementary data:
-  - `TableS1_neORF_expression_472.csv` — per-replicate S2R+ expression of the clean-intergenic, uniquely-mappable neORF set (**472 identified**; **466 quantified** in this featureCounts run — 6 X-linked, near-zero loci fell outside the run's annotation, listed in `data/analysis/clean_set_unquantified.tsv`) (H-x-H content, dm6 coordinates, ZMEG labelled).
+  - `Dataset_S1_neORF_expression.csv` — per-replicate S2R+ expression of the clean-intergenic, uniquely-mappable neORF set (**472 identified**; **466 quantified** in this featureCounts run — 6 X-linked, near-zero loci fell outside the run's annotation, listed in `data/analysis/clean_set_unquantified.tsv`) (H-x-H content, dm6 coordinates, ZMEG labelled).
   - `analysis/` — the bundled analysis inputs the zinc/ZMEG figures read (neORF sequences, featureCounts counts, the clean-set table, cross-species tables, control structures). This makes **all** figures reproducible without any external tree.
 - `manuscript_denovo_chelation.docx` — manuscript (Science-style numbered references).
 
@@ -17,7 +17,7 @@ Every figure and table regenerates from committed inputs — there is **no depen
 
 ### The neORF expression set (472) is now reproducible from primary inputs
 
-The clean-intergenic set consumed by Fig 4 / Table S1 is the output of a documented,
+The clean-intergenic set consumed by Fig 4 / Dataset S1 is the output of a documented,
 auditable pipeline (previously it shipped as an opaque list):
 
 - `code/rebuild_clean_intergenic.py` — the **"mappability-clean, non-overlapping"** selector: BLAT neORFs → dm6 (unique best hit), require zero FlyBase gene overlap, then genmap K=101/E=2 unique-mapping screen. Emits `neORF_clean_mappable.tsv` (472 loci).
