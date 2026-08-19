@@ -4,7 +4,7 @@ Code and data release for the manuscript on *de novo* ORFs as candidate metal (z
 
 - `code/` — analysis and figure-generation scripts. `code/run_all.sh` reproduces the figures; see `code/README.md` for details and dependencies.
 - `data/` — machine-readable supplementary data:
-  - `TableS1_neORF_expression_472.csv` — per-replicate S2R+ expression of the **472** clean-intergenic, uniquely-mappable neORFs (H-x-H content, dm6 coordinates, ZMEG labelled).
+  - `TableS1_neORF_expression_472.csv` — per-replicate S2R+ expression of the clean-intergenic, uniquely-mappable neORF set (**472 identified**; **466 quantified** in this featureCounts run — 6 X-linked, near-zero loci fell outside the run's annotation, listed in `data/analysis/clean_set_unquantified.tsv`) (H-x-H content, dm6 coordinates, ZMEG labelled).
   - `analysis/` — the bundled analysis inputs the zinc/ZMEG figures read (neORF sequences, featureCounts counts, the clean-set table, cross-species tables, control structures). This makes **all** figures reproducible without any external tree.
 - `manuscript_denovo_chelation.docx` — manuscript (Science-style numbered references).
 

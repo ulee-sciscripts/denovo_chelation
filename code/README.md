@@ -20,7 +20,7 @@ from within `code/`.
 | **S1** | top-15 enriched ELM/SLiM classes | `figS1_slim.R` | `hs_style.R` (mono) | shipped CSVs ✅ |
 | **S2** | amino-acid composition by class | `figS2_aacomp.R` | `hs_style.R` (mono) | shipped CSVs ✅ |
 | **S3** | apo-model calibration control (calprotectin vs ZMEG) | `figS_calpro.py` | `hs_mpl.py` (mono) | structures ⚠️ |
-| **Table S1** | per-replicate expression of the 472 clean-intergenic mappable neORFs (machine-readable CSV; ZMEG labelled) | `tableS1_expression.py` | — (CSV → `../data/`) | bundled ✓ |
+| **Table S1** | per-replicate expression of the clean-intergenic mappable neORFs (472 identified; 466 quantified — 6 X-linked near-zero loci outside the featureCounts run, see `data/analysis/clean_set_unquantified.tsv`; ZMEG labelled) | `tableS1_expression.py` | — (CSV → `../data/`) | bundled ✓ |
 | **Table S2** | ZMEG (CA)n tract length within/across species | `tableS2.py` | `hs_mpl.py` (mono) | bundled ✓ |
 
 `hs_style.R` (R base graphics) and `hs_mpl.py` (matplotlib) are the two shared
@@ -97,7 +97,7 @@ submission/
     hisspacing/             <- shipped intermediate CSVs (Figs 1/2/S1/S2 inputs)
     intermediate/           <- precomputed chelation tables the Python drivers read
     raw/                    <- raw inputs, populated by fetch_data.sh (empty here)
-    TableS1_neORF_expression_472.csv  <- Table S1: per-replicate STAR TPM of the 472 clean-intergenic mappable neORFs
+    TableS1_neORF_expression_472.csv  <- Table S1: per-replicate STAR TPM (466 of the 472-locus clean set quantified; 6 X-linked near-zero loci unquantified)
 ```
 
 ## R figure inputs (Track 1, `../data/hisspacing/`)
@@ -142,7 +142,7 @@ cells with **STAR + featureCounts** (unique reads, length-normalized to TPM), on
 `rebuild_clean_intergenic.py` (BLAT neORFs → dm6 unique best hit; drop any FlyBase
 gene overlap; genmap K=101/E=2 unique-mapping screen). Table S1
 (`tableS1_expression.py` → `../data/TableS1_neORF_expression_472.csv`) carries the
-per-replicate STAR TPMs (WT / ZnT63-KO / IA2-KO × control/Zn/Mn) for all 472 neORFs,
+per-replicate STAR TPMs (WT / ZnT63-KO / IA2-KO × control/Zn/Mn) for the 466 of 472 quantified in this run (6 X-linked near-zero loci unquantified; see `data/analysis/clean_set_unquantified.tsv`),
 with per-condition means and H-x-H content. The featureCounts matrix
 (`data/analysis/star_counts/counts.txt`) is **bundled**; regenerate it from raw FASTQ
 (SRR5608193–SRR5608210) with `run_star_featurecounts.sh` (+ `build_augmented_gtf.sh`).
