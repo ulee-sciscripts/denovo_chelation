@@ -1,0 +1,15 @@
+# 6 clean-intergenic, uniquely-mappable neORFs IDENTIFIED by rebuild_clean_intergenic.py (set = 472)
+# but NOT quantified in Table S1 (466 rows). Cause: these X-linked loci fell outside the
+# featureCounts annotation used for the shipped counts.txt (a one-off GTF-build omission;
+# build_augmented_gtf.sh, the committed builder, correctly includes them -> a fresh
+# STAR+featureCounts run reproduces all 472). All 6 are near-zero / undetected: the five
+# non-H-x-H are irrelevant to the motif analysis, and the single poly-(H-x-H) locus
+# (DK_STRG.11531.1) is undetected in the orthogonal salmon quantification (rowSums<10).
+# They therefore do not affect any conclusion. Columns: name, dm6, has_hxh, poly_hxh
+name	dm6_coord	has_hxh	poly_hxh
+DK_STRG.11065.4_3_2125_2682	X:14027165-14027725	0	0
+DK_STRG.11070.1_2_583_717	X:14117078-14117216	0	0
+DK_STRG.11531.1_3_155_424	X:16255593-16255871	1	1
+DK_STRG.12073.1_2_237_443	X:20714196-20714405	0	0
+DK_STRG.12128.1_3_383_739	X:21284352-21284667	0	0
+DK_STRG.12306.1_2_524_631	X:23104155-23104265	0	0

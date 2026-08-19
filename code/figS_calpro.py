@@ -15,7 +15,7 @@ import os
 import matplotlib.pyplot as plt
 from hs_mpl import apply_style, panel_label, save, INK, GREY1, GREY2, GREY3, GREY4, GREYbg, WHITE
 
-ROOT= os.environ.get("ZROOT", "../../zinc_analysis")   # analysis data tree (sibling of submission/)
+ROOT= os.environ.get("ZROOT", "../data/analysis")   # analysis data tree (sibling of submission/)
 OUT = os.environ.get("ZOUT", "figures")                # release figures/ dir
 CALPRO = os.path.join(ROOT,"structures","calprotectin","calprotectin_heterodimer.pdb")
 CAND3  = os.path.join(ROOT,"structures","cand3.pdb")

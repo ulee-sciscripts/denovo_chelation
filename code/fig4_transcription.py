@@ -16,7 +16,7 @@ Transcription panels (A,B) are recomputed here directly from star_counts/counts.
 length-normalized to TPM).  Trajectory panels (C,D) use the authoritative tables
 zmeg_history/tables/{zmeg_synteny_summary,zmeg_orf_raw}.tsv.
 
-Data root defaults to ../../zinc_analysis (override: argv[1] or run from submission/code/).
+Data root defaults to ../data/analysis (override: argv[1] or run from submission/code/).
 """
 import sys, csv
 import numpy as np
@@ -46,7 +46,7 @@ HIS_FILL, HIS_EDGE, HIS_TXT = "#d5e5f2", "#08519c", "#08519c"   # His accent (Pa
 STOP = "#b2182b"
 EVT  = "#111111"   # polarised-event asterisk colour (Panel C branches)
 
-ROOT = sys.argv[1] if len(sys.argv) > 1 else "../../zinc_analysis"  # analysis data tree (sibling of submission/)
+ROOT = sys.argv[1] if len(sys.argv) > 1 else "../data/analysis"  # analysis data tree (sibling of submission/)
 OUT  = sys.argv[2] if len(sys.argv) > 2 else "figures"             # release figures/ dir
 DPI  = int(sys.argv[3]) if len(sys.argv) > 3 else 300
 

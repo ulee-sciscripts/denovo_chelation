@@ -1,0 +1,19 @@
+run	genotype	condition	rep	title
+SRR5608193	WT	control	1	WT, no treatment rep1
+SRR5608194	WT	control	2	WT, no treatment rep2
+SRR5608195	WT	Zn	1	WT, Zn treatment rep1
+SRR5608196	WT	Zn	2	WT, Zn treatment rep2
+SRR5608197	WT	Mn	1	WT, Mn treatment rep1
+SRR5608198	WT	Mn	2	WT, Mn treatment rep2
+SRR5608199	ZnT63-KO	control	1	ZnT63-KO, no treatment rep1
+SRR5608200	ZnT63-KO	control	2	ZnT63-KO, no treatment rep2
+SRR5608201	ZnT63-KO	Zn	1	ZnT63-KO, Zn treatment rep1
+SRR5608202	ZnT63-KO	Zn	2	ZnT63-KO, Zn treatment rep2
+SRR5608203	ZnT63-KO	Mn	1	ZnT63-KO, Mn treatment rep1
+SRR5608204	ZnT63-KO	Mn	2	ZnT63-KO, Mn treatment rep2
+SRR5608205	IA2-KO	control	1	IA2-KO, no treatment rep1
+SRR5608206	IA2-KO	control	2	IA2-KO, no treatment rep2
+SRR5608207	IA2-KO	Zn	1	IA2-KO, Zn treatment rep1
+SRR5608208	IA2-KO	Zn	2	IA2-KO, Zn treatment rep2
+SRR5608209	IA2-KO	Mn	1	IA2-KO, Mn treatment rep1
+SRR5608210	IA2-KO	Mn	2	IA2-KO, Mn treatment rep2

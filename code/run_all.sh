@@ -11,7 +11,7 @@
 #   Fig S1 enriched ELM/SLiM classes ................. figS1_slim.R        (R)
 #   Fig S2 amino-acid composition .................... figS2_aacomp.R      (R)
 #   Fig S3 calprotectin apo-model control ............ figS_calpro.py      (py)
-#   Table S1 neORF expression (267 neORFs, CSV) ...... tableS1_expression.py (-> ../data/)
+#   Table S1 neORF expression (472 neORFs, CSV) ...... tableS1_expression.py (-> ../data/)
 #   Table S2 ZMEG (CA)n tract across strains/species . tableS2.py          (py)
 #
 # Execution modes:
@@ -26,8 +26,8 @@
 #
 #   --zinc-figs    generate the zinc/ZMEG figures (Figs 3, 4, 5 + Table S1/S2 +
 #                  the calprotectin control).  These are Python and read the
-#                  analysis data tree at ../../zinc_analysis/ (neORF.fa, star_counts/,
-#                  zmeg_history/, structures/, ...), which is NOT bundled in this
+#                  analysis data tree at ../data/analysis/ (neORF.fa, star_counts/,
+#                  zmeg_history/, structures/, ...), which is now BUNDLED in this
 #                  figure release.  Requires matplotlib (+ numpy/scipy/pandas/PIL;
 #                  Fig 5 also needs PyMOL-rendered panels, see fig5_render_pymol.py).
 #                  Override the data root with ZROOT=/path ; best-effort (a missing
@@ -52,12 +52,12 @@ run_r_figures () {
 
 if [ "$MODE" = "--zinc-figs" ]; then
   echo "== zinc/ZMEG figures (Figs 3, 4, 5, S3) + Tables S1/S2 =="
-  echo "   data root ZROOT=${ZROOT:-../../zinc_analysis} (not bundled; see README.md)"
+  echo "   data root ZROOT=${ZROOT:-../data/analysis} (bundled; standalone)"
   # best-effort: a missing input/dependency warns but does not abort the batch
   "$PYTHON" fig3_mechanism.py       || echo "WARN fig3_mechanism.py failed (missing data/deps?)"
   "$PYTHON" fig4_transcription.py   || echo "WARN fig4_transcription.py failed (missing data/deps?)"
   "$PYTHON" figS_calpro.py          || echo "WARN figS_calpro.py failed (missing data/deps?)"
-  "$PYTHON" tableS1_expression.py   || echo "WARN tableS1_expression.py failed (missing data/deps?)"   # Table S1 -> ../data/TableS1_neORF_expression_267.csv
+  "$PYTHON" tableS1_expression.py   || echo "WARN tableS1_expression.py failed (missing data/deps?)"   # Table S1 -> ../data/TableS1_neORF_expression_472.csv
   "$PYTHON" tableS2.py              || echo "WARN tableS2.py failed (missing data/deps?)"                # Table S2 -> figures/tableS2.{tsv,png,pdf}
   echo "   Fig 5 (fig5_metalsite.py) needs PyMOL-rendered panels first:"
   echo "     pymol -cq fig5_render_pymol.py   # writes panels to \$FIG5_SCR (default ./fig5_render)"

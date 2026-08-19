@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Regenerate Table S1 = per-replicate expression of the 267 mappability-clean non-overlapping
+"""Regenerate Table S1 = per-replicate expression of the 472 clean-intergenic mappable non-overlapping
 neORFs (correct dm6 coords, H-x-H content, ZMEG labeled). Machine-readable CSV."""
 import os, csv, re
-base=os.environ.get("ZROOT","../../zinc_analysis")   # analysis data tree
-out=os.environ.get("ZS1OUT","../data/TableS1_neORF_expression_267.csv")
+base=os.environ.get("ZROOT","../data/analysis")   # analysis data tree
+out=os.environ.get("ZS1OUT","../data/TableS1_neORF_expression_472.csv")
 
 # --- counts.txt (featureCounts): geneid -> (len, counts[]); per-sample RPK sum for TPM ---
 with open(base+"/star_counts/counts.txt") as f:

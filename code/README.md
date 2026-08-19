@@ -14,14 +14,14 @@ from within `code/`.
 |---|---|---|---|---|
 | **1** | H-x-H / His-spacing enrichment (A profile; B H-x-H, C C-x-x-C fold; D incidence; E density) | `fig1_hisspacing.R` | `hs_style.R` (mono) | shipped CSVs ✅ |
 | **2** | (CA)n codon usage (A His codon CAC bias; B H-x-H middle residue) | `fig2_camechanism.R` | `hs_style.R` (mono) | shipped CSVs ✅ |
-| **3** | (CA)n → H-x-H **mechanism schematic** + poly-HxH multiplicity | `fig3_mechanism.py` | `hs_mpl.py` (mono) | analysis tree ⚠️ |
-| **4** | de novo ORF **transcription** (STAR) + ZMEG cross-species **trajectory** | `fig4_transcription.py` | inline (color)† | analysis tree ⚠️ |
+| **3** | (CA)n → H-x-H **mechanism schematic** + poly-HxH multiplicity | `fig3_mechanism.py` | `hs_mpl.py` (mono) | bundled ✓ |
+| **4** | de novo ORF **transcription** (STAR) + ZMEG cross-species **trajectory** | `fig4_transcription.py` | inline (color)† | bundled ✓ |
 | **5** | ZMEG candidate **bis-His metal site** (fold, Metal3D, His-cage) | `fig5_metalsite.py` (+ `fig5_render_pymol.py`) | inline (color)† | PyMOL + structures ⚠️ |
 | **S1** | top-15 enriched ELM/SLiM classes | `figS1_slim.R` | `hs_style.R` (mono) | shipped CSVs ✅ |
 | **S2** | amino-acid composition by class | `figS2_aacomp.R` | `hs_style.R` (mono) | shipped CSVs ✅ |
 | **S3** | apo-model calibration control (calprotectin vs ZMEG) | `figS_calpro.py` | `hs_mpl.py` (mono) | structures ⚠️ |
-| **Table S1** | per-replicate expression of the 267 mappability-clean neORFs (machine-readable CSV; ZMEG labelled) | `tableS1_expression.py` | — (CSV → `../data/`) | analysis tree ⚠️ |
-| **Table S2** | ZMEG (CA)n tract length within/across species | `tableS2.py` | `hs_mpl.py` (mono) | analysis tree ⚠️ |
+| **Table S1** | per-replicate expression of the clean-intergenic mappable neORFs (472 identified; 466 quantified — 6 X-linked near-zero loci outside the featureCounts run, see `data/analysis/clean_set_unquantified.tsv`; ZMEG labelled) | `tableS1_expression.py` | — (CSV → `../data/`) | bundled ✓ |
+| **Table S2** | ZMEG (CA)n tract length within/across species | `tableS2.py` | `hs_mpl.py` (mono) | bundled ✓ |
 
 `hs_style.R` (R base graphics) and `hs_mpl.py` (matplotlib) are the two shared
 **austere/monochrome** style modules; every figure that can be monochrome sources one of them.
@@ -56,9 +56,9 @@ draws the R figures — path-wired, not tested here; needs network + numpy + sci
 ./run_all.sh --zinc-figs
 ```
 
-These are Python and read the **analysis data tree** at `../../zinc_analysis/`
-(sibling of `submission/`), which is **not bundled** in this figure release. Override
-the root with `ZROOT=/path/to/zinc_analysis`. The mode is best-effort: a missing
+These are Python and read the **analysis data tree** at `../data/analysis/`
+(sibling of `submission/`), which is now **bundled** under `data/analysis/`. Override
+the root with `ZROOT=/path/to/analysis`. The mode is best-effort: a missing
 input or dependency warns and continues. Python deps: `matplotlib` (+ `numpy`,
 `scipy`, `pandas` for Fig 4; `PIL` for Fig 5). Fig 5 additionally needs **PyMOL** and
 structure files — render its panels first, then compose:
@@ -68,7 +68,7 @@ pymol -cq fig5_render_pymol.py     # writes ray-traced panels to $FIG5_SCR (defa
 python3 fig5_metalsite.py          # composes figures/fig5.pdf
 ```
 
-Inputs each zinc figure expects under `$ZROOT` (`../../zinc_analysis/`):
+Inputs each zinc figure expects under `$ZROOT` (`../data/analysis/`):
 
 | script | reads |
 |---|---|
@@ -97,7 +97,7 @@ submission/
     hisspacing/             <- shipped intermediate CSVs (Figs 1/2/S1/S2 inputs)
     intermediate/           <- precomputed chelation tables the Python drivers read
     raw/                    <- raw inputs, populated by fetch_data.sh (empty here)
-    TableS1_neORF_expression_267.csv  <- Table S1: per-replicate STAR TPM of the 267 mappability-clean neORFs
+    TableS1_neORF_expression_472.csv  <- Table S1: per-replicate STAR TPM (466 of the 472-locus clean set quantified; 6 X-linked near-zero loci unquantified)
 ```
 
 ## R figure inputs (Track 1, `../data/hisspacing/`)
@@ -137,13 +137,15 @@ by `fetch_data.sh`. The selected classes are already captured in the shipped
 
 Figure 4 panels A/B quantify de novo ORF transcription in *D. melanogaster* S2R+
 cells with **STAR + featureCounts** (unique reads, length-normalized to TPM), on a
-**mappability-honest** clean set (`neORF_clean_mappable.tsv`: 267 loci passing a
-genmap K=101/E=2 unique-mapping screen; low-mappability / repeat-artifact loci are
-dropped). Table S1 (`tableS1_expression.py` → `../data/TableS1_neORF_expression_267.csv`)
-carries the per-replicate STAR TPMs (WT / ZnT63-KO / IA2-KO × control/Zn/Mn) for all
-267 neORFs, with per-condition means and H-x-H content. Raw FASTQ →
-`star_counts/counts.txt` requantification is heavy and lives in the analysis tree,
-**not** bundled here.
+**mappability-honest, non-overlapping** clean set (`neORF_clean_mappable.tsv`:
+472 loci). That set is reproducible from primary inputs via
+`rebuild_clean_intergenic.py` (BLAT neORFs → dm6 unique best hit; drop any FlyBase
+gene overlap; genmap K=101/E=2 unique-mapping screen). Table S1
+(`tableS1_expression.py` → `../data/TableS1_neORF_expression_472.csv`) carries the
+per-replicate STAR TPMs (WT / ZnT63-KO / IA2-KO × control/Zn/Mn) for the 466 of 472 quantified in this run (6 X-linked near-zero loci unquantified; see `data/analysis/clean_set_unquantified.tsv`),
+with per-condition means and H-x-H content. The featureCounts matrix
+(`data/analysis/star_counts/counts.txt`) is **bundled**; regenerate it from raw FASTQ
+(SRR5608193–SRR5608210) with `run_star_featurecounts.sh` (+ `build_augmented_gtf.sh`).
 
 ## Raw inputs (downloaded by `fetch_data.sh` into `../data/raw/`)
 
@@ -176,6 +178,6 @@ archive contents) it auto-detects at run time and prints a clearly-marked
 The R figures-from-CSVs path (Track 1 default) was tested end to end with
 `Rscript` (R 4.2) and `gplots`; Figs 1, 2, S1, S2 render. The full-from-raw Python
 path is path-wired and imports cleanly but was not executed end to end here (raw
-inputs not bundled). The Track-2 zinc figures depend on the unbundled analysis tree
-and are provided path-wired (relative to `../../zinc_analysis`), not tested in this
+inputs not bundled). The Track-2 zinc figures now read the bundled `data/analysis/` tree
+and are reproducible standalone; regenerated in this
 release.

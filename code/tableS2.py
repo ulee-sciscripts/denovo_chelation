@@ -7,12 +7,12 @@
 
 (Table S1 is the machine-readable per-replicate expression CSV of the 267
 mappability-clean neORFs -- generated separately by tableS1_expression.py, written
-to ../data/TableS1_neORF_expression_267.csv.)"""
+to ../data/TableS1_neORF_expression_472.csv.)"""
 import os, csv
 import matplotlib.pyplot as plt
 from hs_mpl import apply_style, save, INK, GREY1, GREY2, GREY3, GREYbg, WHITE
 
-ROOT=os.environ.get("ZROOT","../../zinc_analysis")   # analysis data tree (sibling of submission/)
+ROOT=os.environ.get("ZROOT","../data/analysis")   # analysis data tree (sibling of submission/)
 OUT =os.environ.get("ZOUT","figures")                # release figures/ dir
 TRACT  =os.path.join(ROOT,"avenueA","tables","task3_tractlength.tsv")
 SYNTENY=os.path.join(ROOT,"zmeg_history","tables","zmeg_synteny_summary.tsv")
