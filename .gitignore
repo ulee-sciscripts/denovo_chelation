@@ -7,3 +7,8 @@ code/_rebuild_scratch/
 code/fig5_render/
 *.gtf
 genmap_index/
+
+# cxc_analysis external inputs (large / third-party; see code/cxc_analysis/README.md)
+code/cxc_analysis/data/
+# cached numpy arrays
+*.npy

@@ -1,0 +1,396 @@
+\documentclass[10pt]{article}
+
+% ---------------------------------------------------------------
+% Self-contained supplement for the GBE revision (GBE-260872).
+% Compile: pdflatex popgen_supplement.tex  (run twice for refs).
+% No bibtex: references are an inline thebibliography environment.
+% ---------------------------------------------------------------
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[a4paper,margin=0.85in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{titlesec}
+\usepackage[numbers,square]{natbib}
+\usepackage[hidelinks]{hyperref}
+
+\setlist{itemsep=2pt,topsep=3pt,parsep=0pt}
+\setlength{\parskip}{0pt}
+\frenchspacing
+
+% Compress heading whitespace to keep the supplement within its page budget.
+\titlespacing*{\section}{0pt}{2.0ex plus 0.4ex minus .2ex}{1.0ex plus .2ex}
+\titleformat{\paragraph}[runin]{\normalfont\normalsize\bfseries}{\theparagraph}{0em}{}
+\titlespacing*{\paragraph}{0pt}{1.3ex plus .3ex minus .1ex}{0.6em}
+
+% Convenience macros for the recurring notation.
+\newcommand{\CAn}{(CA)$_n$}
+\newcommand{\HxH}{H-\emph{x}-H}
+\newcommand{\CxC}{C-\emph{x}-C}
+\newcommand{\Ne}{N_e}
+\newcommand{\Npool}{N_{\mathrm{pool}}}
+\newcommand{\dm}{\textit{D.\ melanogaster}}
+
+\begin{document}
+
+\begin{center}
+{\Large\bfseries Supplementary Text}
+\end{center}
+\vspace{2pt}
+
+% ===============================================================
+\section{Model}
+% ===============================================================
+Suppose a recurring cellular demand $D$ for $\mathrm{Zn}^{2+}$-buffering capacity is met with the
+aggregate output of a large pool of $\Npool$ independent, non-linked loci that are transcribed and translated. 
+Assuming that overall enzymatic activity is additive with no deleterious, off-target protein-protein interactions,
+we may define the genome's aggregate $\mathrm{Zn}^{2+}$-buffering capacity $C$ as,
+\begin{equation}
+C \;=\; \sum_{i=1}^{\Npool} c_i ,
+\end{equation}
+where $i$ indexes the $\Npool$ contributing loci. We may define fitness as a continuous, once differentiable function whose value
+depends on the difference between the genome's aggregate capacity $C$ and the demand $D$ resulting 
+from existing environmental conditions such that
+\begin{equation}
+w \;=\; f(C-D).
+\label{eq:fitness}
+\end{equation}
+
+\paragraph{Marginal per-locus selection.} Where the genome is well-adapted to local conditions,
+i.e., the reservoir comfortably meets demand so that $f'(C-D)$ is small (though nonzero), we may consider a single mutation 
+in locus $i$ that alters $c_i$, and thus $C$, by $\Delta c_i$. Such mutations may include, but are not limited to, 
+slippage events, frameshifts, substitutions, or other heritable activating or disabling events at locus $i$. 
+To first order, the change in fitness resulting from such mutation is
+\begin{equation}
+\Delta w_i = f'(C-D)\,\Delta c_i \;+\; O(\Delta c_i^{2}).
+\label{eq:deltafit}
+\end{equation}
+Re-writing the leading term of Eq.~\eqref{eq:deltafit} as the identity 
+\begin{equation}
+\Delta w_i \;\approx\;
+\underbrace{f'(C-D)\,C}_{\text{(I)}}\;\cdot\;
+\underbrace{\frac{c_i}{C}}_{\text{(II)}}\;\cdot\;
+\underbrace{\frac{\Delta c_i}{c_i}}_{\text{(III)}} ,
+\label{eq:star}
+\end{equation}
+we may see that the change in fitness is related to (I) demand saturation, (II) functional redundancy, and
+(III) the intrinsic effect of mutation $i$.
+
+\section{Per-locus neutrality below the drift barrier}
+
+In a genome that is well-adapted to local conditions, and a large number of similarly functioning loci contribute to $C$,
+(I) and (II) are small. Specifically, following Hartl--Dykhuizen--Dean \citep{hartl85}, such a genome
+operates where fitness is nearly insensitive to further capacity, $f'(C-D) \approx 0$, so any single locus's
+marginal change in $C$ barely moves fitness. Similarly, the assumption that all loci function
+similarly does not allow any single locus to carry much more than its fractional contribution $1/\Npool$, 
+where $1/\Npool \to 0$ for large $\Npool$. As a result, the marginal fitness effect of locus $i$ is small in both structural factors ($f'(C-D)\,C$ by saturation and $1/\Npool$ by redundancy) even when $|\Delta c_i/c_i|$ is of order-of-magnitude 1, as
+\begin{equation}
+|\Delta w_i| \;\approx\; \,f'(C-D)\,C\,\cdot\frac{1}{\Npool}\cdot\Big|\frac{\Delta c_i}{c_i}\Big| \, .
+\end{equation}
+This relationship demonstrates how a single mutation in locus $i$ is effectively neutral once its coefficient 
+falls below the nearly-neutral drift barrier \citep{kimura68,ohta73,lynch11}
+\begin{equation}
+|\Delta w_i| \;\lesssim\; \frac{1}{2\Ne}.
+\end{equation}
+Thus, for \dm{}, with
+$\Ne\approx 1 \;\text{---}\; 2.5\times10^{6}$ \citep{emerson08,kreitman83}, the barrier is
+\begin{equation}
+\frac{1}{2\Ne} \;\approx\; 2\times10^{-7} \;\text{---}\; 5\times10^{-7}.
+\end{equation}
+Assuming a pool of $\Npool\approx 7{,}000$ \emph{de novo} loci \citep{grandchamp23}, the product $\,f'(C-D)\,C\,\cdot\big|\Delta c_i/c_i\big|$
+would need to exceed $\approx 1.4\times10^{-3} \;\text{---}\; 3.5\times10^{-3}$ to clear this barrier.
+Consequently, even if the entire buffering function carried a modest marginal fitness weight $\,f'(C-D)\,C\,$ of order $0.1\%$, a single locus would need to change its own output $\big|\Delta c_i/c_i\big|$ by a full $140\% \;\text{---}\; 350\%$ to be readily selectable in \dm{}. Since abolishing an entire locus is only a $100\%$ change, no disabling mutation at a single locus clears the barrier.
+
+
+%i.e.\ additional capacity helps when the cell is in deficit but yields sharply diminishing returns and
+%becomes worthless once demand is comfortably met (a saturating, concave $f$). We treat chelation as this
+%one undifferentiated capacity, not as separable sub-activities. The redundancy in the model is entirely
+%across \emph{loci}: $C$ is the additive contribution of a dispersed multi-gene class, no single member of
+%which is individually required.
+%
+%\paragraph{Marginal per-locus selection.} Consider a mutation at locus $i$ that changes its contribution
+%by $\Delta c_i$ (a slippage event that lengthens or shortens the tract, a frameshift that abolishes the
+%ORF, a substitution that alters a coordinating histidine). To first order the fitness change is
+%$\Delta w = f'(C-D)\,\Delta c_i$, so the selection coefficient on the variant, with $w$ normalised to
+%$\approx 1$ near the operating point, is $s_i \approx f'(C-D)\,\Delta c_i$. Writing this in fractional
+%form exposes its structure:
+%\begin{equation}
+%s_i \;\approx\;
+%\underbrace{f'(C-D)\,C}_{\text{(I) demand saturation}}\;\cdot\;
+%\underbrace{\frac{c_i}{C}}_{\text{(II) redundancy } \equiv\, CC_i}\;\cdot\;
+%\underbrace{\frac{\Delta c_i}{c_i}}_{\text{(III) intrinsic effect}} .
+%\label{eq:star}
+%\end{equation}
+%We label Eq.~\eqref{eq:star} a \emph{heuristic scaling}, not a multilocus derivation: it is a
+%first-order, one-locus-at-a-time marginal argument (see \S\ref{sec:limits}). Its value is that it
+%isolates two structurally small factors, (I) and (II), whose product multiplies the bounded intrinsic
+%effect (III).
+%
+%
+%% ===============================================================
+%\section{Motivation}
+%% ===============================================================
+%Across our screen of 7{,}849 segregating \emph{de novo} open reading frames (neORFs) in \dm{}
+%(and a curated 472-ORF subset), $\sim$22\% carry a bis-histidine spacing motif, and the histidine
+%pairs are read predominantly out of \CAn{}/(AC)$_n$ microsatellite tracts: threonine is enriched
+%$\sim$4.1--4.2$\times$ at the centre of the \HxH{} unit, the diagnostic fingerprint of a \CAn{}
+%reading frame. The \HxH{} order-fold enrichment is not an artefact of amino-acid composition: it
+%survives a dinucleotide-preserving (Altschul--Erikson) null that holds exact CA content fixed
+%(fold $=1.63$, $p=2.5\times10^{-4}$; cf.\ $1.76$ against the composition-matched null and $2.0$ in the
+%established proteome). The signal, in short, is real, mechanistic, and---because neORFs are pervasively
+%transcribed and translated as a substrate for \emph{de novo} gene birth \citep{ruizorera18,grandchamp23}%
+%---continually regenerated.
+%
+%That is exactly what makes the reviewer's question sharp. If bis-His spacing confers a genuine
+%$\mathrm{Zn}^{2+}$-buffering (chelation) function, classical population genetics would lead one to
+%expect a per-locus selective footprint---especially in a species with an effective population size as
+%large as $\Ne\approx 1$--$2.5\times10^{6}$, where selection is efficient. We observe none: register
+%composition does not vary with allele frequency, the site-frequency spectrum is that of young unsorted
+%variants, and no single locus is individually conserved or essential. Rather than treat this null as an
+%embarrassment, we show it is the \emph{predicted} outcome of a specific, well-grounded model---the
+%Dykhuizen--Hartl account of selective neutrality under functional redundancy and flux insensitivity
+%\citep{hartl85,ddh87}, generalised to a mutationally replenished pool and read through the Ohta
+%nearly-neutral / drift-barrier framework \citep{ohta73,ohta92,lynch11,sung12}. The high $\Ne$ that
+%seems to create the puzzle is in fact what resolves it.
+%
+%
+%% ===============================================================
+%\section{Result: per-locus neutrality below the drift barrier}
+%% ===============================================================
+%\paragraph{(II) Redundancy / dilution.} Factor (II) is the control coefficient of locus $i$ on aggregate
+%capacity, $CC_i \equiv (\partial C/\partial c_i)(c_i/C)$. For an additive pool $CC_i = c_i/C$, and the
+%control coefficients obey a summation identity,
+%\begin{equation}
+%\sum_{i=1}^{\Npool} CC_i \;=\; 1 ,
+%\end{equation}
+%so that for $\Npool$ comparable contributors the mean control coefficient is $1/\Npool$ and no single
+%locus can carry more than a small share, $CC_i \sim 1/\NpoolC$. This is precisely the
+%metabolic-control-analysis logic Kacser and Burns \citep{kacser81} used to explain the dominance of
+%wild-type alleles: when control is spread over many steps, removing or perturbing one of them barely
+%moves the aggregate, so the perturbation is nearly recessive---and nearly neutral. Genetic redundancy
+%of this kind is itself an expected, evolutionarily tolerated outcome when many elements back up one
+%function \citep{nowak97}. (Strictly, the summation theorem concerns steady-state flux control; here it
+%holds exactly for an additive capacity pool and is used as a scaling analogy otherwise.)
+%
+%\paragraph{(I) Demand saturation (the Dykhuizen--Hartl core).} When the reservoir comfortably meets
+%demand, $C-D\gg 0$, the fitness function sits on its plateau and $f'(C-D)\approx 0$. This is the
+%Hartl--Dykhuizen--Dean result \citep{hartl85}: because fitness (or metabolic flux) is a concave,
+%saturating function of a molecular activity, selection on that activity vanishes once the system is past
+%its point of diminishing returns. The effect is not merely theoretical---Dykhuizen, Dean and Hartl
+%\citep{ddh87} measured the control coefficient of $\beta$-galactosidase on fitness in chemostats at only
+%$\approx 0.018$, a direct demonstration that a bona fide enzymatic activity can be all but invisible to
+%selection when the cell has it in excess.
+%
+%\paragraph{Product and the drift barrier.} Both structural factors in Eq.~\eqref{eq:star} are therefore
+%driven toward zero: $f'(C-D)\to 0$ by saturation and $CC_i\to 1/\Npool$ by redundancy. Their product
+%crushes the marginal coefficient,
+%\begin{equation}
+%|s_i| \;\approx\; \big[\,f'(C-D)\,C\,\big]\cdot\frac{1}{\Npool}\cdot\Big|\frac{\Delta c_i}{c_i}\Big|
+%\;\longrightarrow\; \text{(small)}\times\frac{1}{\Npool}\times O(1),
+%\end{equation}
+%even when the intrinsic per-locus effect (III) is not small. A variant is effectively neutral---its fate
+%governed by drift, not selection---once its coefficient falls below the drift barrier,
+%\begin{equation}
+%|s_i| \;\lesssim\; \frac{1}{2\Ne} ,
+%\label{eq:barrier}
+%\end{equation}
+%the nearly-neutral threshold \citep{ohta73,ohta92}---an extension of the neutral theory
+%\citep{kimura68}---formalised by the drift-barrier principle \citep{lynch11,sung12}. Equation~\eqref{eq:barrier} follows from Kimura's diffusion result
+%\citep{kimura62} for the fixation probability of a new semidominant mutation of genic effect $s$ in a
+%population of census size $N$ and effective size $\Ne$,
+%\begin{equation}
+%u(s) \;=\; \frac{1-e^{-2(\Ne/N)s}}{1-e^{-4\Ne s}} ,
+%\end{equation}
+%which for $|4\Ne s|\ll 1$ collapses to the neutral value $u\approx 1/(2N)$: selection then leaves no
+%imprint on the allele's trajectory. (The precise constant in Eq.~\eqref{eq:barrier}---$1/(2\Ne)$ versus
+%$1/(4\Ne)$---is convention-dependent; only the order of magnitude matters here.) For \dm{}, with
+%$\Ne\approx 1$--$2.5\times10^{6}$, the barrier is
+%\begin{equation}
+%\frac{1}{2\Ne} \;\approx\; 2\times10^{-7}\text{--}\,5\times10^{-7}.
+%\end{equation}
+%The claim of the model is that redundancy $\times$ saturation drive $|s_i|$ below this window
+%\emph{even though $\Ne$ is large}. Per-locus, there is essentially nothing for selection to act on.
+%
+%% ===============================================================
+%\section{The role of high \texorpdfstring{$\Ne$}{Ne}: the linchpin, in both directions}
+%% ===============================================================
+%This is the subtle part of the argument, and it is easy to get backwards, so we state it carefully.
+%
+%\paragraph{The apparent paradox.} A large $\Ne$ \emph{sharpens} selection: the barrier
+%Eq.~\eqref{eq:barrier} scales as $1/(2\Ne)$, so increasing $\Ne$ lets selection resolve ever-smaller
+%coefficients. Naively, then, a high-$\Ne$ organism like \dm{} should reveal even a minuscule per-locus
+%chelation advantage---which would make the \emph{absence} of a per-locus signature look like evidence
+%\emph{against} function. We confront this head-on rather than sidestep it.
+%
+%\paragraph{Resolution, two channels---both powered by high $\Ne$.}
+%\begin{description}[leftmargin=1.4em,style=unboxed]
+%\item[(a) Supply---the ``reservoir in flux.''] The size of the reservoir is set primarily by the
+%\emph{mutational target} and by \emph{recurrent origination}, not by any single tract's slippage rate.
+%The target is large---thousands of segregating neORFs (7{,}849 here; \citealp{grandchamp23}), and any
+%in-frame \CAn{}/(TG)$_n$ tract on either strand yields the \HxH{} (or \CxC{}) ligand geometry---and
+%origination is dispersed and recurrent. A large $\Ne$ enlarges the \emph{absolute} mutational input
+%entering the population each generation, keeping the standing pool large and continually turning over:
+%birth and death of tracts dominate over selective sorting. We deliberately do \emph{not} rest this on
+%$\theta=4\Ne\mu$ being ``enormous.'' \emph{Drosophila} dinucleotide slippage is modest---on the order of
+%$10^{-6}$ per locus per generation (a combined di/tri/tetranucleotide average of $6.3\times10^{-6}$;
+%\citealp{schug97,schug98}). The point is instead relative and aggregate: per-locus slippage
+%$\theta_{\mathrm{slip}}=4\Ne\mu_{\mathrm{slip}}$ is only of order a few---so tract length is itself
+%polymorphic and turning over, the literal sense of ``in flux''---while still exceeding the
+%point-mutation $\theta$ by roughly three orders of magnitude
+%($\mu_{\mathrm{slip}}/\mu_{\mathrm{point}}\sim 10^{-6}/10^{-9}$). Summed over a large target in a large
+%population, the reservoir is replenished far faster than sub-barrier per-locus selection could sort it.
+%
+%\item[(b) Detection---the null is informative.] Precisely because $\Ne$ is high, the barrier is low
+%($\sim 5\times10^{-7}$), so a null result is quantitatively meaningful. The observed absence of a
+%per-locus signature (\S\ref{sec:pred}) is therefore not a failure of power but an \emph{upper bound},
+%\begin{equation}
+%s_{\mathrm{marg}} \;\lesssim\; \frac{1}{2\Ne}\;\approx\; 5\times10^{-7}.
+%\end{equation}
+%In a low-$\Ne$ species the same null would be uninformative, because a high barrier would hide real
+%selection of comparable magnitude. \dm{} is thus the \emph{ideal} organism in which to have run this
+%test: it converts a null into a tight ceiling on per-locus selection.
+%\end{description}
+%
+%\paragraph{Why the paradox dissolves.} The naive argument assumes there is a fixed, small, positive
+%per-locus advantage merely waiting for enough $\Ne$ to be resolved. The model denies that premise: the
+%marginal per-locus effect in Eq.~\eqref{eq:star} is not simply small but \emph{structurally pinned near
+%zero} by redundancy $\times$ saturation, at any realistic $\Ne$. High $\Ne$ cannot resolve what is, per
+%locus, essentially not there---and, through the low barrier, it \emph{certifies} that it is not there,
+%while simultaneously supplying and maintaining the aggregate, multi-locus reservoir that does the buffering. Same
+%high $\Ne$, two consequences: a maintained reservoir and an informative null. The apparent liability is
+%the argument's strength.
+%
+%% ===============================================================
+%\section{Predictions matched to the data}
+%\label{sec:pred}
+%% ===============================================================
+%The model makes four qualitative predictions, each with an empirical anchor in the study.
+%
+%\begin{enumerate}[label=\textbf{P\arabic*.},leftmargin=2.2em]
+%\item \textbf{Flat register composition across allele frequency.} If per-locus selection is below the
+%barrier, the composition of the segregating pool is set by neutral birth/death, not sorted by frequency.
+%Observed (7 iso-female lines; \citealp{grandchamp23}): the His:Cys reading-register ratio is flat at
+%$\approx 48\%$ His in every derived-allele-frequency (AF) bin; the Cochran--Armitage trend gives
+%$z=-0.32$ ($p=0.75$), a logistic model gives a slope of $-0.035$ per AF unit ($p=0.75$), and a Fisher
+%test of private versus retained loci gives $\mathrm{OR}=0.78$ ($p=0.63$). This is the predicted neutral
+%churn, with the trend if anything slightly negative---no monotonic enrichment. \emph{Caveat:} the test
+%is underpowered (only 292 register-informative loci, 18 at $\mathrm{AF}\ge 4$), and dm6 mapping is
+%$\sim$50\% per strain, so derived AF is a floor; we therefore read this as ``consistent with,'' not
+%``proof of,'' per-locus neutrality.
+%
+%\item \textbf{Left-skewed site-frequency spectrum.} Young, weakly or unsorted segregating loci should
+%show a strong excess of rare variants. Observed: $\approx$76\% private singletons, decaying
+%monotonically---the expected shape for a pool governed by recent origination and drift.
+%
+%\item \textbf{No single-locus knockout phenotype.} Redundancy predicts that removing any one contributor
+%is nearly silent. This matches the finding, in this very system, that ``essentiality of newly evolved
+%genes is rare'' \citep{grill23}: individual young loci are typically dispensable for viability and
+%fertility.
+%
+%\item \textbf{Genomic invisibility / lack of cross-species orthology.} Because no single locus is
+%necessary, the function is conserved as a \emph{statistical property of the reservoir}---reinvented
+%independently rather than inherited---and no individual ORF need show orthology across species. This also
+%answers ``is it \emph{Drosophila}-specific?'': the \emph{ingredients} are general---\CAn{}/(AC)$_n$ is
+%the most abundant dinucleotide microsatellite across animal genomes \citep{toth00}, and bis-histidine
+%$\mathrm{Zn}^{2+}$ coordination is a universal metal-binding chemistry \citep{andreini06}---whereas the
+%specific loci are not conserved precisely because none is individually essential. A conserved capacity
+%carried by non-conserved parts. \emph{Caveat:} the ``(CA)$_n$-dominant'' rule is an animal / most-%
+%eukaryote generalisation; AT-rich genomes (notably plants) are a documented exception, so we frame it as
+%dominant across animals rather than universal.
+%\end{enumerate}
+%
+%% ===============================================================
+%\section{Assumptions and limitations}
+%\label{sec:limits}
+%% ===============================================================
+%We state the model's boundaries plainly. (i) Equation~\eqref{eq:star} is a \emph{heuristic scaling}, not
+%a full multilocus population-genetic derivation: it is a first-order, single-locus-at-a-time marginal
+%argument that neglects linkage, epistasis among contributors, and the joint distribution of the pool. A
+%complete treatment would model the stochastic birth and death of tracts jointly with drift and with the
+%covariance among per-locus contributions; we claim only a scaling account that is consistent with
+%established theory. (ii) The Dykhuizen--Hartl mechanism requires that demand is, on average, met by the
+%reservoir ($C-D\gtrsim 0$). If demand chronically exceeded supply, $f'$ would be appreciable and
+%per-locus selection could re-emerge---a falsifiable boundary condition of the model rather than a hidden
+%assumption; under transient deficits, selection would act on \emph{aggregate}, not per-locus, capacity.
+%(iii) The retention/AF null (P1) is independently underpowered and its high-AF bins are noisy and, by
+%Grandchamp's ``present in $<$7 strains'' definition of a neORF, partly out of scope; it is corroborative,
+%not decisive. (iv) $\Ne$ is a genome-wide summary; local effective size varies with recombination and
+%with background and linked selection, and the drift barrier is an order-of-magnitude threshold. (v) We
+%use the metabolic-control summation theorem \citep{kacser81} as an exact identity for an additive
+%capacity pool and as a scaling analogy otherwise. (vi) We make no claim about the molecular mechanism of
+%buffering; the argument is purely population-genetic and holds for any redundant, mutationally
+%replenished, demand-saturating aggregate function.
+%
+%% ===============================================================
+%\section*{Synthesis}
+%% ===============================================================
+%Neutral emergence, biased by \CAn{} composition, supplies a functional aggregate $\mathrm{Zn}^{2+}$%
+%-buffering capacity that is---by construction---invisible to per-locus selection at any effective
+%population size, and that is most rigorously testable, yet still invisible, in a high-$\Ne$ species like
+%\dm{}. A genuine function can therefore leave no classical per-locus selective footprint: its
+%conservation is statistical rather than orthologous, and its absence of a single-locus signature is a
+%quantitative upper bound rather than a sign of non-function. This is a positive, mechanistic account of a
+%functional-but-selectively-silent reservoir---grounded in the Dykhuizen--Hartl effect, metabolic control
+%analysis, and the Ohta / drift-barrier framework---not an appeal to ignorance.
+
+% ===============================================================
+% References: inline thebibliography (no bibtex) for a clean one-shot compile.
+% Numeric style via natbib (\citep, \citealp) over a manual bib list.
+% ===============================================================
+\section*{References}
+\renewcommand{\bibsection}{}
+\begingroup
+\setlength{\bibsep}{1pt plus 0.2ex}
+\footnotesize
+\begin{multicols}{2}
+\begin{thebibliography}{99}
+
+\bibitem{hartl85}
+Hartl DL, Dykhuizen DE, Dean AM. 1985.
+Limits of adaptation: the evolution of selective neutrality.
+\textit{Genetics} 111:655--674.
+
+\bibitem{kimura68}
+Kimura M. 1968.
+Evolutionary rate at the molecular level.
+\textit{Nature} 217:624--626.
+
+\bibitem{ohta73}
+Ohta T. 1973.
+Slightly deleterious mutant substitutions in evolution.
+\textit{Nature} 246:96--98.
+
+\bibitem{lynch11}
+Lynch M. 2011.
+The lower bound to the evolution of mutation rates.
+\textit{Genome Biol.\ Evol.} 3:1107--1118.
+\href{https://doi.org/10.1093/gbe/evr066}{doi:10.1093/gbe/evr066}.
+
+\bibitem{grandchamp23}
+Grandchamp A, et al. 2023.
+Population genomics reveals mechanisms and dynamics of \emph{de novo} expressed open reading frame
+emergence in \textit{Drosophila melanogaster}.
+\textit{Genome Res.} 33:872--890 (PMID:~37442576).
+
+\bibitem{emerson08}
+Emerson JJ, Cardoso-Moreira M, Borevitz JO, Long M. 2008.
+Natural selection shapes genome-wide patterns of copy-number polymorphism in
+\textit{Drosophila melanogaster}.
+\textit{Science} 320:1629--1631.
+\href{https://doi.org/10.1126/science.1158078}{doi:10.1126/science.1158078}.
+
+\bibitem{kreitman83}
+Kreitman M. 1983.
+Nucleotide polymorphism at the alcohol dehydrogenase locus of \textit{Drosophila melanogaster}.
+\textit{Nature} 304:412--417.
+\href{https://doi.org/10.1038/304412a0}{doi:10.1038/304412a0}.
+
+\end{thebibliography}
+\end{multicols}
+\endgroup
+
+\end{document}
