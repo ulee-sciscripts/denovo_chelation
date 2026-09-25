@@ -47,6 +47,7 @@ environment; only `fig_summary.R` is verified to run from the committed data her
 ## Files
 - `fig_summary.R` — the supplementary figure (5 panels: H-x-H / C-x-C / C-x-x-C order-fold; Cys/His prevalence).
 - `fig_stats.py` — computes `results/fig_motif_enrichment.csv` and `results/fig_prevalence.csv` (Fisher's exact on spacing position-pairs; binomial exact on residue prevalence vs intergenic; bootstrap CIs).
+- `length_quartile_hxh.py` — H-x-H incidence by length quartile for intergenic ORFs, neORFs, and the length-matched proteome, each with an amino-acid-shuffle expected incidence (P(≥1 motif) under composition- and length-preserving residue permutation), obs/exp, and His prevalence. Shows the incidence gradient is length-driven (flat His prevalence) with a modest ordering excess in neORFs/intergenic (obs/exp>1) but not the proteome (obs/exp≤1). Writes `results/length_quartile_hxh.csv`; caches the intergenic scan to `data/interg_LNH.npy`.
 - `cxc_analysis.py`, `cxc_registers.py` — C-x-C / (CA)ₙ-(TG)ₙ reading-frame register order-fold.
 - `ca_tg_tracts_4sets.py` — (CA)ₙ vs (TG)ₙ coding-strand tract counts (≥4 units; binomial vs 50:50).
 - `cxxc_prevalence.py`, `cxxc_shuffle_incidence.py`, `age_motif_foldenrich.py` — C-x-x-C and gene-age-stratified motif enrichment.
