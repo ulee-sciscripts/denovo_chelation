@@ -35,6 +35,7 @@ INTERVAL = f"{_HERE}/data/interg_intervals"               # dmel.gtf.gz + dm6_rm
 CACHE    = f"{_HERE}/data/interg_LNH.npy"
 CHRS     = ["2L", "2R", "3L", "3R"]
 SEED_MC, B = 20260925, 2000
+P_FLOOR = 1e-300          # Fisher p reporting floor (scipy underflows to 0 at the largest n)
 ORD_H = ord("H")
 
 
@@ -78,6 +79,9 @@ def quartile_rows(name, L, nH, hx):
         obs = obs_with / nq; exp = exp_with / nq
         # Fisher's exact: observed vs shuffle-expected x (has motif / not), within the quartile
         orr, pval = fisher_exact([[obs_with, nq - obs_with], [exp_with, nq - exp_with]])
+        # scipy underflows to 0.0 for the largest sets; floor at 1e-300 (report as "<1e-300",
+        # matching the manuscript convention for underflowing exact tests).
+        pval = max(pval, P_FLOOR)
         rows.append(dict(set=name, quartile=f"Q{q}",
                          len_min=int(lg.min()), len_max=int(lg.max()),
                          n=nq, median_len=int(np.median(lg)),
@@ -156,9 +160,10 @@ def main():
     print(hdr)
     for r in rows:
         lr = "%d-%d" % (r["len_min"], r["len_max"])
+        pstr = "<1e-300" if r["fisher_p"] <= P_FLOOR else f"{r['fisher_p']:.2e}"
         print(f"{r['set']:>24s} {r['quartile']:>3s} {lr:>10s} "
               f"{r['n']:>9,} {r['median_len']:>4d} {r['obs_incidence_pct']:>9.2f}% "
-              f"{r['shuffle_exp_pct']:>8.2f}% {r['obs_over_exp']:>8.2f} {r['fisher_p']:>11.2e} {r['his_prev_pct']:>5.2f}%")
+              f"{r['shuffle_exp_pct']:>8.2f}% {r['obs_over_exp']:>8.2f} {pstr:>11s} {r['his_prev_pct']:>5.2f}%")
     print(f"\nwrote {out}")
 
 
