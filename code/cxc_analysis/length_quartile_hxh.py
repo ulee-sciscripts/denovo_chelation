@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""H-x-H incidence by length quartile, for intergenic ORFs, neORFs, and the
-length-matched proteome, with an amino-acid-shuffle expectation alongside.
+"""H-x-H incidence by length quartile, for intergenic ORFs and neORFs, with an
+amino-acid-shuffle expectation alongside.
 
 Motivation: raw H-x-H *incidence* (fraction of ORFs with >=1 motif) is strongly
 length-dependent -- a 3-residue motif (His at i, i+2) is more likely present the more
@@ -8,7 +8,7 @@ positions an ORF has -- while His *prevalence* (% of residues that are His) is r
 flat with length. This resolves the apparent 3.9%-vs-10.95% intergenic discrepancy
 (pooled-raw vs neORF-length-matched) and isolates ordering from length+composition.
 
-For each of the three sequence sets we split the ORFs into four equal-count quartiles
+For each sequence set we split the ORFs into four equal-count quartiles
 by length and report, per quartile:
   - observed H-x-H incidence (fraction with >=1 H-x-H)
   - amino-acid-shuffle expected incidence: each ORF's own residues placed at uniformly
@@ -27,14 +27,14 @@ from scipy.stats import fisher_exact
 _HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(_HERE, ".."))
 import denovo_hisspacing_analysis as A
-from hs_common import load_denovo, load_proteins, read_fasta
+from hs_common import load_denovo, read_fasta
 
 SCRATCH  = f"{_HERE}/data/md_hp6_scratch"                 # external (git-ignored)
 GENOME   = f"{_HERE}/../../data/analysis/ref/dm6_genome.fa"
 INTERVAL = f"{_HERE}/data/interg_intervals"               # dmel.gtf.gz + dm6_rmsk.txt.gz
 CACHE    = f"{_HERE}/data/interg_LNH.npy"
 CHRS     = ["2L", "2R", "3L", "3R"]
-SEED_MATCH, SEED_MC, B = 20260812, 20260925, 2000
+SEED_MC, B = 20260925, 2000
 ORD_H = ord("H")
 
 
@@ -139,26 +139,11 @@ def load_intergenic():
     return L, nH, hx
 
 
-def matched_proteome(dn_seqs, prot):
-    dl = np.array([len(s) for s in dn_seqs]); pl = np.array([len(s) for s in prot])
-    o = np.argsort(pl, kind="stable"); ps = [prot[i] for i in o]; pls = pl[o]; nP = len(ps)
-    rng = np.random.default_rng(SEED_MATCH); out = []
-    for L in dl:
-        j = int(np.searchsorted(pls, int(L)))
-        cand = [k for k in (j - 1, j, j + 1) if 0 <= k < nP]
-        d = np.array([abs(int(pls[k]) - int(L)) for k in cand])
-        best = [cand[t] for t in range(len(cand)) if d[t] == d.min()]
-        out.append(ps[int(rng.choice(best))])
-    return out
-
-
 def main():
     dn = list(dict.fromkeys(d["prot"] for d in
               load_denovo(sorted(glob.glob(f"{SCRATCH}/gc2023/*_DeNovoGenesNuc.fa")), min_aa=10)))
-    prot = load_proteins(f"{SCRATCH}/data/dmel_pep.fa.gz", min_aa=10)
     sets = [("intergenic", *load_intergenic()),
-            ("neORF", *seq_arrays(dn)),
-            ("length-matched proteome", *seq_arrays(matched_proteome(dn, prot)))]
+            ("neORF", *seq_arrays(dn))]
     rows = []
     for name, L, nH, hx in sets:
         rows += quartile_rows(name, L, nH, hx)
