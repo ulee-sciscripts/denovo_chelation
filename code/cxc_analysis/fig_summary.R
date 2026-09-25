@@ -89,6 +89,6 @@ draw <- function() {
 dir.create(file.path("..", "figures"), showWarnings = FALSE)
 f <- file.path("..", "figures", "fig_summary")
 hs_pdf(paste0(f, ".pdf"), width = 17.0, height = 13.6); draw(); invisible(dev.off())
-png(paste0(f, ".png"), width = 17.0, height = 13.6, units = "in", res = 130)
+png(paste0(f, ".png"), width = 17.0, height = 13.6, units = "in", res = 300)
 par(las = 1, mgp = c(3.0, 0.8, 0), tcl = -0.38); draw(); invisible(dev.off())
 cat("wrote figures/fig_summary.{pdf,png}\n")

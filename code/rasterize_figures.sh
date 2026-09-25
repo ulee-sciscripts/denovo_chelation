@@ -7,7 +7,7 @@ OUT=figures/raster_300dpi; mkdir -p "$OUT"
 # R vector figures always; the Python figs (fig3-5, tables, calpro) already emit
 # 300-dpi PNGs but are re-rastered here too when present (all guarded by -f).
 for f in figures/fig1.pdf figures/fig2.pdf figures/figS1.pdf figures/figS2.pdf \
-         figures/fig3.pdf figures/fig4.pdf figures/fig5.pdf \
+         figures/fig3.pdf figures/fig4.pdf figures/fig5.pdf figures/fig_summary.pdf \
          figures/tableS2.pdf figures/figS_calpro_control.pdf; do
   [ -f "$f" ] || continue
   b=$(basename "$f" .pdf); o="$OUT/${b}_300dpi"
