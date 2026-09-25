@@ -23,6 +23,7 @@ results/length_quartile_hxh.csv (committed) + a printed table.
 """
 import os, sys, glob, csv
 import numpy as np
+from scipy.stats import fisher_exact
 _HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(_HERE, ".."))
 import denovo_hisspacing_analysis as A
@@ -71,13 +72,20 @@ def quartile_rows(name, L, nH, hx):
     rows = []
     for q, g in enumerate(np.array_split(np.arange(n), 4), 1):
         lg, hg, xg, pg = Ls[g], nHs[g], hxs[g], ps[g]
-        obs = float(np.mean(xg >= 1)); exp = float(pg.mean())
+        nq = int(g.size)
+        obs_with = int(np.count_nonzero(xg >= 1))          # ORFs with >=1 H-x-H (observed)
+        exp_with = int(round(pg.sum()))                    # expected under amino-acid shuffle
+        obs = obs_with / nq; exp = exp_with / nq
+        # Fisher's exact: observed vs shuffle-expected x (has motif / not), within the quartile
+        orr, pval = fisher_exact([[obs_with, nq - obs_with], [exp_with, nq - exp_with]])
         rows.append(dict(set=name, quartile=f"Q{q}",
                          len_min=int(lg.min()), len_max=int(lg.max()),
-                         n=int(g.size), median_len=int(np.median(lg)),
+                         n=nq, median_len=int(np.median(lg)),
                          obs_incidence_pct=round(100 * obs, 3),
                          shuffle_exp_pct=round(100 * exp, 3),
                          obs_over_exp=round(obs / exp, 3) if exp else float("nan"),
+                         fisher_OR=round(orr, 3),
+                         fisher_p=pval,
                          his_prev_pct=round(100 * hg.sum() / lg.sum(), 3)))
     return rows
 
@@ -158,13 +166,14 @@ def main():
     out = f"{_HERE}/results/length_quartile_hxh.csv"
     with open(out, "w", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=list(rows[0].keys())); w.writeheader(); w.writerows(rows)
-    hdr = f"{'set':>24s} {'Q':>3s} {'len(aa)':>10s} {'n':>9s} {'med':>4s} {'obs>=1HxH':>10s} {'shuf-exp':>9s} {'obs/exp':>8s} {'His%':>6s}"
+    hdr = (f"{'set':>24s} {'Q':>3s} {'len(aa)':>10s} {'n':>9s} {'med':>4s} {'obs>=1HxH':>10s} "
+           f"{'shuf-exp':>9s} {'obs/exp':>8s} {'Fisher p':>11s} {'His%':>6s}")
     print(hdr)
     for r in rows:
         lr = "%d-%d" % (r["len_min"], r["len_max"])
         print(f"{r['set']:>24s} {r['quartile']:>3s} {lr:>10s} "
               f"{r['n']:>9,} {r['median_len']:>4d} {r['obs_incidence_pct']:>9.2f}% "
-              f"{r['shuffle_exp_pct']:>8.2f}% {r['obs_over_exp']:>8.2f} {r['his_prev_pct']:>5.2f}%")
+              f"{r['shuffle_exp_pct']:>8.2f}% {r['obs_over_exp']:>8.2f} {r['fisher_p']:>11.2e} {r['his_prev_pct']:>5.2f}%")
     print(f"\nwrote {out}")
 
 
