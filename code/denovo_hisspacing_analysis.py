@@ -6,7 +6,7 @@ Outputs JSON + CSVs under ../data/hisspacing/ for the R plotting layer.
 All p-values are bootstrap or permutation (stated per figure); nothing fabricated.
 
 Sets:
-  - de novo neORFs (Grandchamp 2023, translated by us; 7,867)
+  - de novo neORFs (Grandchamp 2023, translated by us; 7,849 unique)
   - clean intergenic ORFs   = 6-frame stop-to-stop ORFs (>=10 aa) of
                               genome \ (gene UNION repeat)
   - repeat-derived intergenic ORFs = ORFs of (repeat \ gene)
@@ -359,7 +359,8 @@ def main():
     # =====================================================================
     mid_counts = {}          # middle residue of H-x-H motifs
     mid_codon = {}           # middle-residue codon
-    hxh_his_codon = {"CAC": 0, "CAT": 0}   # His codons at H-x-H His positions
+    hxh_his_codon = {"CAC": 0, "CAT": 0}   # His codons at motif (H-x-H) positions (unique)
+    non_his_codon = {"CAC": 0, "CAT": 0}   # His codons at non-motif positions (unique)
     all_his_codon = {"CAC": 0, "CAT": 0}   # His codons overall (de novo)
     n_hxh = 0
     aa_bg = np.zeros(256, np.int64)  # de novo aa background
@@ -369,12 +370,21 @@ def main():
         aa_bg += np.bincount(aa, minlength=256)
         hmask = aa == ORD_H
         L = aa.size
-        # overall His codons
+        # His codons: overall, and classified by motif membership at UNIQUE positions.
+        # A His at i is a "motif" His if it participates in >=1 H-x-H (an H at i-2 or i+2);
+        # otherwise "non-motif". Each His is counted once -> removes the double-counting of
+        # the central H of an H-x-H-x-H run that motivated the earlier permutation test.
         for i in np.flatnonzero(hmask):
             cod = dna[3 * i:3 * i + 3]
-            if cod in all_his_codon:
-                all_his_codon[cod] += 1
-        # H-x-H motifs
+            if cod not in all_his_codon:
+                continue
+            all_his_codon[cod] += 1
+            in_motif = (i - 2 >= 0 and hmask[i - 2]) or (i + 2 < L and hmask[i + 2])
+            if in_motif:
+                hxh_his_codon[cod] += 1
+            else:
+                non_his_codon[cod] += 1
+        # H-x-H motifs (middle-residue tallies; motif instance count)
         if L > 2:
             starts = np.flatnonzero(hmask[:-2] & hmask[2:])
             for i in starts:
@@ -383,10 +393,6 @@ def main():
                 mid_counts[mid] = mid_counts.get(mid, 0) + 1
                 mc = dna[3 * (i + 1):3 * (i + 1) + 3]
                 mid_codon[mc] = mid_codon.get(mc, 0) + 1
-                for j in (i, i + 2):
-                    cod = dna[3 * j:3 * j + 3]
-                    if cod in hxh_his_codon:
-                        hxh_his_codon[cod] += 1
     tot_bg = aa_bg[[ord(a) for a in AAS]].sum()
     bg_freq = {a: aa_bg[ord(a)] / tot_bg for a in AAS}
     mid_freq = {a: mid_counts.get(a, 0) / n_hxh for a in AAS}
@@ -406,38 +412,30 @@ def main():
     p_thr = np.mean(boot_thr <= thr_bg)
     p_thr = max(p_thr, 1.0 / (nb + 1)) * 2  # two-sided
     p_thr = min(1.0, p_thr)
-    # CAC vs CAT bias: H-x-H His vs all His -> permutation on 2x2 (two-proportion)
-    a1, b1 = hxh_his_codon["CAC"], hxh_his_codon["CAT"]
-    a0, b0 = all_his_codon["CAC"], all_his_codon["CAT"]
+    # CAC vs CAT bias: motif (H-x-H) His vs NON-motif His, unique positions -> Fisher exact 2x2.
+    # (Reviewer 2 asked for the apples-to-apples motif-vs-non-motif contrast and a Fisher's/binomial
+    #  test in place of the permutation shuffle; unique positions remove the double-count issue.)
+    a1, b1 = hxh_his_codon["CAC"], hxh_his_codon["CAT"]   # motif His
+    a2, b2 = non_his_codon["CAC"], non_his_codon["CAT"]   # non-motif His
+    a0, b0 = all_his_codon["CAC"], all_his_codon["CAT"]   # all His (kept for the record / sanity)
     frac_hxh = a1 / (a1 + b1)
+    frac_non = a2 / (a2 + b2)
     frac_all = a0 / (a0 + b0)
-    # permutation test: pool the two His-codon populations, permute labels
-    lab_hxh = np.array([1] * a1 + [0] * b1, np.int8)     # 1=CAC
-    lab_rest = np.array([1] * (a0 - a1) + [0] * (b0 - b1), np.int8)  # remaining His (all minus hxh)
-    pool = np.concatenate([lab_hxh, lab_rest])
-    n1 = lab_hxh.size
-    rng3 = np.random.default_rng(SEED + 8)
-    obs_stat = frac_hxh - pool.mean()
-    nb2 = 5000
-    cnt = 0
-    for b in range(nb2):
-        pr = rng3.permutation(pool.size)
-        s = pool[pr[:n1]].mean() - pool.mean()
-        if abs(s) >= abs(obs_stat):
-            cnt += 1
-    p_cac = (cnt + 1) / (nb2 + 1)
+    from scipy.stats import fisher_exact
+    _or_cac, p_cac = fisher_exact([[a1, b1], [a2, b2]], alternative="two-sided")
     top_mid_codons = sorted(mid_codon.items(), key=lambda kv: -kv[1])[:6]
     log(f"Fig3 n_HxH={n_hxh}  Thr-middle={thr_mid} ({100*mid_freq['T']:.1f}%) "
         f"bg Thr {100*thr_bg:.1f}%  fold {mid_freq['T']/thr_bg:.2f}x  p_thr={p_thr:.1e}")
-    log(f"Fig3 CAC frac: H-x-H His {100*frac_hxh:.1f}% vs all His {100*frac_all:.1f}%  p={p_cac:.1e}")
+    log(f"Fig3 CAC frac: H-x-H His {100*frac_hxh:.1f}% vs non-H-x-H His {100*frac_non:.1f}% "
+        f"(all His {100*frac_all:.1f}%)  Fisher p={p_cac:.2e}")
     log(f"Fig3 top middle codons: {top_mid_codons}")
     results["fig3"] = {
         "n_hxh": n_hxh,
         "mid_freq": mid_freq, "bg_freq": bg_freq,
         "thr_mid_frac": mid_freq["T"], "thr_bg_frac": thr_bg,
         "thr_fold": mid_freq["T"] / thr_bg, "p_thr": float(p_thr), "stars_thr": stars(p_thr),
-        "cac_frac_hxh": frac_hxh, "cac_frac_all": frac_all,
-        "cat_frac_hxh": 1 - frac_hxh, "cat_frac_all": 1 - frac_all,
+        "cac_frac_hxh": frac_hxh, "cac_frac_non": frac_non, "cac_frac_all": frac_all,
+        "cat_frac_hxh": 1 - frac_hxh, "cat_frac_non": 1 - frac_non, "cat_frac_all": 1 - frac_all,
         "p_cac": float(p_cac), "stars_cac": stars(p_cac),
         "top_mid_codons": top_mid_codons,
     }
@@ -615,14 +613,14 @@ def main():
     with open(f"{OUT}/fig2_codon.csv", "w", newline="") as fh:
         w = csv.writer(fh); w.writerow(["group", "CAC_pct", "CAT_pct"])
         w.writerow(["H-x-H His", 100 * frac_hxh, 100 * (1 - frac_hxh)])
-        w.writerow(["all His", 100 * frac_all, 100 * (1 - frac_all)])
+        w.writerow(["non-H-x-H His", 100 * frac_non, 100 * (1 - frac_non)])
     with open(f"{OUT}/fig2_stats.csv", "w", newline="") as fh:
         w = csv.writer(fh); w.writerow(["key", "value"])
         for k, v in [("n_hxh", n_hxh),
                      ("thr_mid_pct", 100 * mid_freq["T"]), ("thr_bg_pct", 100 * thr_bg),
                      ("thr_fold", mid_freq["T"] / thr_bg),
                      ("p_thr", p_thr), ("star_thr", stars(p_thr)),
-                     ("cac_hxh_pct", 100 * frac_hxh), ("cac_all_pct", 100 * frac_all),
+                     ("cac_hxh_pct", 100 * frac_hxh), ("cac_non_pct", 100 * frac_non),
                      ("p_cac", p_cac), ("star_cac", stars(p_cac)),
                      ("top_mid_codon", top_mid_codons[0][0]),
                      ("top_mid_codon_n", top_mid_codons[0][1])]:

@@ -1,7 +1,7 @@
 #!/usr/bin/env Rscript
 ## Fig 2 -- the (CA)n reading-frame mechanism, stripped to the minimum.  Two
 ## panels, side by side (swapped order):
-##   A = His-codon usage: H-x-H His is CAC-biased relative to all His.
+##   A = His-codon usage: H-x-H His is CAC-biased relative to non-H-x-H His.
 ##   B = middle residue of de novo H-x-H motifs (Thr enriched; top middle codon ACA).
 ## Base plot() + points only; series told apart by pch (filled vs open); ONE
 ## comparison marker per panel (A: CAC at two x -> hs_bracket; B: Thr mid-vs-bg at
@@ -25,14 +25,14 @@ layout(matrix(c(1, 2), nrow = 1), widths = c(1.0, 1.3))   # A codon (narrow), B 
 ## ============================ Panel A ============================
 ## His-codon usage; x = 1 H-x-H His, x = 2 all His.  Filled = CAC, open = CAT.
 hxh <- codon[codon$group == "H-x-H His", ]
-alh <- codon[codon$group == "all His",  ]
-cac  <- c(hxh$CAC_pct, alh$CAC_pct)   # 56.9, 48.3
-cat_ <- c(hxh$CAT_pct, alh$CAT_pct)   # 43.1, 51.7
+nhx <- codon[codon$group == "non-H-x-H His", ]
+cac  <- c(hxh$CAC_pct, nhx$CAC_pct)   # 56.2, 47.2
+cat_ <- c(hxh$CAT_pct, nhx$CAT_pct)   # 43.8, 52.8
 
 par(mar = c(4.6, 5.2, 3.0, 1.2))
 plot(NA, xlim = c(0.5, 2.5), ylim = c(36, 66), xaxt = "n", cex.lab = 1.18,
      xlab = "", ylab = "His-codon usage (%)")
-axis(1, at = c(1, 2), labels = c("H-x-H His", "all His"))
+axis(1, at = c(1, 2), labels = c("H-x-H His", "non-H-x-H His"))
 points(c(1, 2), cac,  pch = 19, cex = 1.5)   # filled = CAC
 points(c(1, 2), cat_, pch = 1,  cex = 1.5)   # open   = CAT
 

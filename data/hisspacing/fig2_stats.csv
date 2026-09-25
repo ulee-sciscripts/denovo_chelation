@@ -5,9 +5,9 @@ thr_bg_pct,5.3204142862306805
 thr_fold,4.178633951643129
 p_thr,0.0003999200159968006
 star_thr,***
-cac_hxh_pct,56.90876882196634
-cac_all_pct,48.324404422660436
-p_cac,0.0001999600079984003
+cac_hxh_pct,56.206896551724135
+cac_non_pct,47.23049048789957
+p_cac,3.049e-14
 star_cac,***
 top_mid_codon,ACA
 top_mid_codon_n,183
