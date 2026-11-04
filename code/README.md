@@ -22,6 +22,7 @@ from within `code/`.
 | **S3** | apo-model calibration control (calprotectin vs ZMEG) | `figS_calpro.py` | `hs_mpl.py` (mono) | structures ⚠️ |
 | **Dataset S1** | per-replicate expression of the clean-intergenic mappable neORFs (472 identified; 466 quantified — 6 X-linked near-zero loci outside the featureCounts run, see `data/analysis/clean_set_unquantified.tsv`; ZMEG labelled) | `tableS1_expression.py` | — (CSV → `../data/`) | bundled ✓ |
 | **Table S1** | ZMEG (CA)n tract length within/across species | `tableS2.py` | `hs_mpl.py` (mono) | bundled ✓ |
+| **Table 2** | perfect dinucleotide microsatellite tracts by class (2L/2R/3L/3R, ≥5 units) | `dinuc_census.py` | — (TSV → `../data/hisspacing/table2_dinuc_census.tsv`) | dm6 arms via `fetch_data.sh` ✓ |
 
 `hs_style.R` (R base graphics) and `hs_mpl.py` (matplotlib) are the two shared
 **austere/monochrome** style modules; every figure that can be monochrome sources one of them.
@@ -122,6 +123,7 @@ Regenerate the `../data/hisspacing/*.csv` from raw inputs. Run in this order
 | `denovo_lenmatch_regen.py` | `fig1_stats` | length-matched proteome comparison |
 | `denovo_fig1_wholeprotein.py` | `fig1_incidence`, `fig1_density` | reads `../data/intermediate/chelation_derived.json` |
 | `denovo_figS1_enriched.py` | `figS1_slim`, `figS1_hxh` | see note below |
+| `dinuc_census.py` | `table2_dinuc_census.tsv` | Table 2; reads the dm6 arms `dna_{2L,2R,3L,3R}.fa.gz` from `fetch_data.sh` (or any genome FASTA given as arguments) |
 
 Shared helpers: `hs_common.py` (FASTA/translation/spacing), `dinuc_shuffle.py`
 (Altschul–Erikson dinucleotide shuffle null).

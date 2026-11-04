@@ -1,0 +1,11 @@
+scope	n_min_units	class	tract_count	pct_tracts	repeat_bp	pct_bp
+euchromatic arms (2L,2R,3L,3R)	5	AC	11323	52.9360	159936	54.0135
+euchromatic arms (2L,2R,3L,3R)	5	AG	2726	12.7443	38610	13.0393
+euchromatic arms (2L,2R,3L,3R)	5	AT	7271	33.9925	96830	32.7013
+euchromatic arms (2L,2R,3L,3R)	5	CG	70	0.3273	728	0.2459
+euchromatic arms (2L,2R,3L,3R)	5	ALL	21390	100.0000	296104	100.0000
+euchromatic arms (2L,2R,3L,3R)	7	AC	4812	59.3268	87844	58.7043
+euchromatic arms (2L,2R,3L,3R)	7	AG	1125	13.8701	20774	13.8828
+euchromatic arms (2L,2R,3L,3R)	7	AT	2173	26.7908	41006	27.4035
+euchromatic arms (2L,2R,3L,3R)	7	CG	1	0.0123	14	0.0094
+euchromatic arms (2L,2R,3L,3R)	7	ALL	8111	100.0000	149638	100.0000
